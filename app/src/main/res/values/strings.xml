@@ -31,4 +31,19 @@
     <string name="ms">MS</string>
     <string name="cos">cos</string>
     <string name="sin">sin</string>
+    <string name="wrongEmail">Wrong email</string>
+    <string name="wrongPassword">Wrong password</string>
+    <string name="registerEmailBlank">Email field is blank</string>
+    <string name="usedEmail">This email is already used</string>
+    <string name="passwordBlank">Password field is blank</string>
+    <string name="differentPasswords">Passwords don\'t match</string>
+    <string name="registered">Successfully registered</string>
+    <string name="accountsMap">ACCOUNTS</string>
+    <string name="loginText">Login</string>
+    <string name="loginButton">Login</string>
+    <string name="registerText">Register</string>
+    <string name="registerButton">Register</string>
+    <string name="emailNotValid">Email is not valid</string>
+    <string name="passwordNotValid">Password is not valid</string>
+    <integer name="com_vk_sdk_AppId">51619458</integer>
 </resources>

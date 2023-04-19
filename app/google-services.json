@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "946667759577",
+    "project_id": "primeval-mark-384120",
+    "storage_bucket": "primeval-mark-384120.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946667759577:android:dd1ca46b8ee9ea54189bc8",
+        "android_client_info": {
+          "package_name": "by.shtrudell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946667759577-2nh4er41p0tb6feguan18pjpkpk3ki0l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "by.shtrudell",
+            "certificate_hash": "a1a31440b0e116bf6a64beec770d7e0044870a12"
+          }
+        },
+        {
+          "client_id": "946667759577-7n3cakfg78vgl26tnt22hks5n7bgjtdf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPpN7rE2T95pjrHpajBNCzkmqW4l1E9AU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946667759577-7n3cakfg78vgl26tnt22hks5n7bgjtdf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
