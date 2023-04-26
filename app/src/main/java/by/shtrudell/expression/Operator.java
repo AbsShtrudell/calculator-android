@@ -61,7 +61,7 @@ public class Operator implements Primitive{
         return parse;
     }
 
-    private class OperatorFormater implements Formater {
+    private class OperatorFormater extends NullFormater {
 
         @Override
         public FormationResult addDigit(Digit digit) {
@@ -86,6 +86,11 @@ public class Operator implements Primitive{
         @Override
         public FormationResult addDot(Dot dot) {
             return new FormationResult(false, false, null);
+        }
+
+        @Override
+        public FormationResult addNumber(Number expression) {
+            return new FormationResult(false, true, null);
         }
     }
 }

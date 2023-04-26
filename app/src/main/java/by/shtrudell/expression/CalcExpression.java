@@ -66,7 +66,7 @@ public class CalcExpression implements Primitive{
         primitiveStack.clear();
     }
 
-    private class ExpressionFormater implements Formater {
+    private class ExpressionFormater extends NullFormater {
 
         @Override
         public FormationResult addDigit(Digit digit) {
@@ -164,6 +164,26 @@ public class CalcExpression implements Primitive{
             if(primitiveStack.empty() || dot == null) return new FormationResult(false, false, null);
 
             primitiveStack.lastElement().second.getFormater().addDot(dot);
+
+            return new FormationResult(false, true, null);
+        }
+
+        @Override
+        public FormationResult addNumber(Number number) {
+            if(number == null) return new FormationResult(false, false, null);
+
+            if(primitiveStack.size() > 0) {
+                var result = primitiveStack.lastElement().second.getFormater().addNumber(number);
+
+                if(result.validContinuation() && !result.attached()) {
+                    if(result.connectingPrimitive() != null)
+                        primitiveStack.push(new Pair<>(primitiveStack.lastElement().first, result.connectingPrimitive()));
+
+                    primitiveStack.push(new Pair<>(primitiveStack.lastElement().first, number));
+                }
+            }
+            else
+                primitiveStack.push(new Pair<>(0, number));
 
             return new FormationResult(false, true, null);
         }

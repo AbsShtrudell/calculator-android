@@ -6,4 +6,6 @@ public interface Formater {
     FormationResult addBracket(Bracket bracket);
     FormationResult addFunction(Function function);
     FormationResult addDot(Dot dot);
+    FormationResult addExpression(CalcExpression expression);
+    FormationResult addNumber(Number expression);
 }

@@ -11,7 +11,7 @@ public class Number implements Primitive{
     private final List<Digit> digits;
     private Pair<Integer, Dot> dotPosition;
 
-    public Number(Digit[] digits) {
+    public Number(Digit[] digits, int dot) {
         this.digits = List.of(digits);
     }
 
@@ -37,7 +37,7 @@ public class Number implements Primitive{
 
     @Override
     public FormationResult format(Formater formater) {
-        return new FormationResult(false, true, null);
+        return formater.addNumber(this);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class Number implements Primitive{
         return stringBuilder.toString();
     }
 
-    private class NumFormater implements Formater {
+    private class NumFormater extends NullFormater {
 
         @Override
         public FormationResult addDigit(Digit digit) {

@@ -49,7 +49,7 @@ public class Bracket implements Primitive{
         return left? "(" : ")";
     }
 
-    private class BracketFormater implements Formater {
+    private class BracketFormater extends NullFormater {
 
         @Override
         public FormationResult addDigit(Digit digit) {
@@ -74,6 +74,11 @@ public class Bracket implements Primitive{
         @Override
         public FormationResult addDot(Dot dot) {
             return new FormationResult(false, false, null);
+        }
+
+        @Override
+        public FormationResult addNumber(Number expression) {
+            return new FormationResult(false, true, left? null : Operator.MULTIPLICATION);
         }
     }
 }

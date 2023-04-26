@@ -12,14 +12,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 import by.shtrudell.expression.*;
 import by.shtrudell.expression.Function;
-
+import by.shtrudell.expression.Number;
+//./gradlew signingReport
 public class MainActivity extends AppCompatActivity {
 
     private TextView expressionField;
     private TextView answerField;
+
+    private Number memory;
 
     private CalcExpression expression;
 
@@ -60,7 +64,15 @@ public class MainActivity extends AppCompatActivity {
 
         initDeleteButton(R.id.button_del);
         initClearExpressionButton(R.id.button_ce);
+        initClearExpressionButton(R.id.button_c);
 
+        initEqualButton(R.id.button_eq);
+
+        initMMButton(R.id.button_mm);
+        initMSButton(R.id.button_ms);
+        initMPButton(R.id.button_mp);
+        initMCButton(R.id.button_mc);
+        initMRButton(R.id.button_mr);
     }
 
     private void expressionFieldChange(String text)
@@ -75,10 +87,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void calculate(String expression) {
+    protected double calculate(String expression) {
         double answer = new Expression(expression).calculate();
         answerField.setText(Double.isNaN(answer)? "": new DecimalFormat("#.##########").format(answer));
         //Toast.makeText(this, expression.toString(), Toast.LENGTH_SHORT).show();
+        return answer;
     }
 
     private void initPrimitiveButton(int id, Primitive primitive) {
@@ -88,6 +101,98 @@ public class MainActivity extends AppCompatActivity {
             expressionFieldChange(expression.viewStyle());
             calculate(expression.parseStyle());
         });
+    }
+
+    private void initMSButton(int id) {
+        Button button = findViewById(id);
+        button.setOnClickListener(v -> {
+            double number = new Expression(expression.parseStyle()).calculate();
+
+            memory = parseDoubleToNumber(number);
+
+            if(memory == null)
+                Toast.makeText(this, "Не являеься числом", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void initMCButton(int id) {
+        Button button = findViewById(id);
+        button.setOnClickListener(v -> {
+            memory = null;
+        });
+    }
+
+    private void initMRButton(int id) {
+        Button button = findViewById(id);
+        button.setOnClickListener(v -> {
+            if(memory == null) return;
+
+            memory.format(expression.getFormater());
+            calculate(expression.parseStyle());
+            expressionFieldChange(expression.viewStyle());
+        });
+    }
+
+    private void initMPButton(int id) {
+        Button button = findViewById(id);
+        button.setOnClickListener(v -> {
+            if(memory == null) return;
+
+            double number = new Expression(memory.parseStyle() + '+' + expression.parseStyle()).calculate();
+
+            Number result = parseDoubleToNumber(number);
+
+            if(result != null) memory = result;
+        });
+    }
+
+    private void initMMButton(int id) {
+        Button button = findViewById(id);
+        button.setOnClickListener(v -> {
+            if(memory == null) return;
+
+            double number = new Expression(memory.parseStyle() + '+' + expression.parseStyle()).calculate();
+
+            Number result = parseDoubleToNumber(number);
+
+            if(result != null) memory = result;
+        });
+    }
+
+    private void initEqualButton(int id) {
+        Button button = findViewById(id);
+        button.setOnClickListener(v -> {
+
+            String string1 = String.valueOf(calculate(expression.parseStyle()));
+
+            expression = new CalcExpression();
+            for(char symbol : string1.toCharArray()) {
+                if(symbol <= '9' && symbol >= '0') {
+                    new Digit(symbol).format(expression.getFormater());
+                }
+                else if(symbol == '.' || symbol ==',')
+                    new Dot().format(expression.getFormater());
+            }
+
+            expressionFieldChange(expression.viewStyle());
+        });
+    }
+
+    private Number parseDoubleToNumber(double number) {
+        String string = String.valueOf(number);
+
+        if(Double.isNaN(number)) return null;
+
+        var expression = new Number();
+        for(char symbol : string.toCharArray()) {
+            if(symbol <= '9' && symbol >= '0') {
+                new Digit(symbol).format(expression.getFormater());
+            }
+            else if(symbol == '.' || symbol ==',')
+                new Dot().format(expression.getFormater());
+        }
+
+        return expression;
     }
 
     private void initDeleteButton(int id) {

@@ -45,7 +45,7 @@ public class Function implements Primitive{
         return name + "(";
     }
 
-    private class FuncFormater implements Formater {
+    private class FuncFormater extends NullFormater {
 
         @Override
         public FormationResult addDigit(Digit digit) {
@@ -70,6 +70,11 @@ public class Function implements Primitive{
         @Override
         public FormationResult addDot(Dot dot) {
             return new FormationResult(false, false, null);
+        }
+
+        @Override
+        public FormationResult addNumber(Number expression) {
+            return new FormationResult(false, true, null);
         }
     }
 }

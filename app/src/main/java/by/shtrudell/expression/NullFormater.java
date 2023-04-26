@@ -1,5 +1,7 @@
 package by.shtrudell.expression;
 
+import org.mariuszgromada.math.mxparser.Expression;
+
 public class NullFormater implements Formater{
     @Override
     public FormationResult addDigit(Digit digit) {
@@ -23,6 +25,16 @@ public class NullFormater implements Formater{
 
     @Override
     public FormationResult addDot(Dot dot) {
+        return new FormationResult(false, false, null);
+    }
+
+    @Override
+    public FormationResult addExpression(CalcExpression expression) {
+        return new FormationResult(false, false, null);
+    }
+
+    @Override
+    public FormationResult addNumber(Number expression) {
         return new FormationResult(false, false, null);
     }
 }
